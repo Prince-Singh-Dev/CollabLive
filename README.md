@@ -20,9 +20,7 @@ This project was developed as part my intership task
 
 > A sleek and lightning-fast real-time document editor built using **Node.js**, **Socket.io**, and **Vanilla JS**. Collaborate live, edit together, and never lose your work.
 
-![CollabLive Screenshot](https://your-screenshot-link-here) <!-- (Replace with GitHub image link later) -->
-
----
+<img width="1345" height="669" alt="Image" src="https://github.com/user-attachments/assets/536b342b-8d45-402b-90e4-73944194b94d" />
 
 ## 🚀 Features
 
@@ -74,7 +72,8 @@ http://localhost:3000
 ```
 
 # 📸 Screenshots / Outputs
-
+<img width="1350" height="675" alt="Image" src="https://github.com/user-attachments/assets/f4a64c55-43c2-4f3a-b406-d6453626f352" />
+<img width="1331" height="670" alt="Image" src="https://github.com/user-attachments/assets/3b0a4621-6bbe-48dc-8f24-55884b6ac8c8" />
 
 🧑‍💼 Made By
 Prince Singh
