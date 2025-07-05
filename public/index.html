@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Collaborative Editor - Home</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>📚 Collaborative Doc Editor</h1>
+
+  <button onclick="createNewDoc()">➕ Create New Document</button>
+
+  <h3>Or join a document:</h3>
+  <input type="text" id="docIdInput" placeholder="Enter Document ID..." />
+  <button onclick="joinDoc()">🔗 Join</button>
+
+  <script>
+    function createNewDoc() {
+      const docId = "doc-" + Math.floor(Math.random() * 100000);
+      window.location.href = "/doc/" + docId;
+    }
+
+    function joinDoc() {
+      const docId = document.getElementById("docIdInput").value.trim();
+      if (docId) {
+        window.location.href = "/doc/" + docId;
+      } else {
+        alert("Please enter a document ID");
+      }
+    }
+  </script>
+</body>
+</html>

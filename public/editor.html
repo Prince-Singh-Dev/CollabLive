@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>⚡ Live Collab Editor</title>
+
+  <!-- Fonts & Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    body {
+      padding: 2rem;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid #00fff7;
+      border-radius: 18px;
+      box-shadow: 0 0 25px #00fff7;
+      backdrop-filter: blur(10px);
+      width: 100%;
+      padding: 2rem;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #00fff7;
+      text-shadow: 0 0 10px #00fff7;
+    }
+
+    #docIdLabel {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.6rem 1.2rem;
+      border-radius: 12px;
+      font-weight: bold;
+      border: 1px solid #00fff7;
+      box-shadow: 0 0 10px #00fff7;
+      font-size: 1rem;
+    }
+
+    #copyLinkBtn {
+      margin-left: 1rem;
+      background: transparent;
+      border: 2px solid #ff00c8;
+      color: #ff00c8;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      text-shadow: 0 0 5px #ff00c8;
+      box-shadow: 0 0 10px #ff00c8;
+      transition: 0.3s ease;
+    }
+
+    #copyLinkBtn:hover {
+      background: #ff00c8;
+      color: #0f0c29;
+      box-shadow: 0 0 15px #ff00c8, 0 0 30px #ff00c8;
+    }
+
+    #editor {
+     width: 100%;
+     height: 500px;
+     padding: 1.5rem;
+     font-size: 1.05rem;
+     font-weight: 500;
+     color: #f5f5f5; /* Brighter white */
+     background: rgba(12, 14, 24, 0.85); /* Darker glass */
+     border: 2px solid #00fff7;
+     border-radius: 18px;
+     box-shadow: 0 0 12px #00fff7;
+     resize: none;
+     outline: none;
+     line-height: 1.6;
+     text-shadow: none;
+     backdrop-filter: blur(10px);
+     transition: 0.3s ease;
+    }
+
+    #editor::placeholder {
+     color: #ccc;
+     font-weight: 400;
+     opacity: 0.8;
+    }
+
+    #editor:focus {
+     border-color: #ff00c8;
+     box-shadow: 0 0 15px #ff00c8;
+     color: #ffffff; /* Pure white when focused */
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      #editor {
+        height: 320px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <header>
+        <h1>⚡ Live Collab Editor</h1>
+        <div style="display: flex; flex-wrap: wrap; align-items: center;">
+          <span id="docIdLabel">Loading doc ID...</span>
+          <button id="copyLinkBtn">📋 Copy Link</button>
+        </div>
+      </header>
+
+      <textarea id="editor" placeholder="Start typing with your team in real time..."></textarea>
+    </div>
+  </div>
+
+  <!-- Socket.IO -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const editor = document.getElementById("editor");
+    const docId = window.location.pathname.split("/doc/")[1];
+    const docIdLabel = document.getElementById("docIdLabel");
+
+    // Update label
+    docIdLabel.textContent = `#${docId}`;
+
+    // Join room
+    socket.emit("join-doc", docId);
+
+    // Send changes
+    editor.addEventListener("input", () => {
+      socket.emit("text-change", {
+        docId: docId,
+        content: editor.value,
+      });
+    });
+
+    // Receive changes
+    socket.on("update-text", (data) => {
+      if (data !== editor.value) {
+        editor.value = data;
+      }
+    });
+
+    // Copy Link Feature
+    document.getElementById("copyLinkBtn").addEventListener("click", () => {
+      const fullLink = `${window.location.origin}/doc/${docId}`;
+      navigator.clipboard.writeText(fullLink).then(() => {
+        const btn = document.getElementById("copyLinkBtn");
+        btn.textContent = "✅ Copied!";
+        setTimeout(() => btn.textContent = "📋 Copy Link", 1500);
+      });
+    });
+  </script>
+</body>
+</html>
