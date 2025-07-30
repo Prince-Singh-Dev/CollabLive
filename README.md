@@ -1,21 +1,3 @@
-# TASK 3: REAL-TIME COLLABORATIVE DOCUMENT EDITOR
-
-COMPANY : CODTECH IT SOLUTION PVT.LTD
-
-NAME : PRINCE KUMAR SINGH
-
-INTERN ID : CT04DN1422
-
-DOMAIN : FULL STACK WEB DEVELOPMENT
-
-DURATION : 4 WEEKS ( FROM JUNE 10TH , 2025 TO JULY 10TH 2025 )
-
-MENTOR : NEELA SANTOSH
-
-INSTRUCTION : USE FRAMEWORKS LIKE REACT.JS OR VUE.JS FOR A DYNAMIC AND RESPONSIVE UI. USE NODE.JS, PYTHON (DJANGO/FLASK), OR A SIMILAR BACKEND FRAMEKEWORK. USE MONGODB OR POSTGRESQL FOR DATA STORAGE
-
-This project was developed as part my intership task 
-
 # ⚡ CollabLive - Real-Time Collaborative Document Editor
 
 > A sleek and lightning-fast real-time document editor built using **Node.js**, **Socket.io**, and **Vanilla JS**. Collaborate live, edit together, and never lose your work.
